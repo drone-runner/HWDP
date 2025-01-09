@@ -1,0 +1,11 @@
+#! /bin/bash
+
+. ./bsd.conf
+
+. ./scan-port.conf
+
+rand="$(echo -ne "1\n2\n3" | shuf | head -1)"
+
+exec 3<>/dev/tcp/${1}.${2}.${3}.${4}/${PORT} || exit 1
+head -1 <&3 | grep -iq 'ssh' && sleep ${rand}.${rand}${rand} && echo ${1}.${2}.${3}.${4}:${PORT} >> sshs.txt
+exit 0

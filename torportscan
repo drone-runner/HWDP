@@ -1,0 +1,12 @@
+#! /bin/bash
+
+. ./bsd.conf
+
+. ./torportscan.conf
+
+for d in `seq 0 255 | shuf`
+do
+	echo "-> $1.$2.$3.$d"
+	( eval timeout ${TIMEOUT}s torify $EXTERNAL_PROGRAM $1 $2 $3 $d ) &
+	sleep $SLEEP
+done
